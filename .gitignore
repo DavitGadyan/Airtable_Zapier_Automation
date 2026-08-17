@@ -1,0 +1,23 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Node
+node_modules/
+.next/
+out/
+
+# Secrets -- .env.example is committed, .env never is
+.env
+.env.local
+
+# Generated fixtures (rebuild: python scripts/make_po_pdf.py)
+backend/tests/fixtures/*.pdf
+
+# Tooling
+.DS_Store
+.playwright-mcp/
+*.log

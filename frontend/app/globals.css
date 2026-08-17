@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens.
+ *
+ * The explorer components reference these by name (bg-surface-raised,
+ * text-tertiary, shadow-panel...). Defining them here is the whole of the
+ * "restyle to the host design system" step -- the components themselves are
+ * copied verbatim.
+ *
+ * Warm neutrals rather than the usual blue-greys: this is a construction
+ * client, and the palette should not look like a SaaS dashboard template.
+ */
+@theme {
+  --color-surface: #ffffff;
+  --color-surface-raised: #ffffff;
+  --color-surface-sunken: #f5f3f0;
+  --color-surface-active: #ebe7e1;
+
+  --color-border: #ddd8d0;
+
+  --color-primary: #26221d;
+  --color-secondary: #5c554b;
+  --color-tertiary: #8a8175;
+
+  --color-accent: #b45309;
+  --color-accent-subtle: #fdf0e3;
+
+  --color-success: #3f7a52;
+  --color-success-subtle: #eaf3ec;
+  --color-warning: #b45309;
+  --color-warning-subtle: #fdf0e3;
+  --color-danger: #9f3a35;
+  --color-danger-subtle: #fbecea;
+
+  --shadow-panel: 0 1px 2px rgb(38 34 29 / 0.06), 0 8px 24px rgb(38 34 29 / 0.08);
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+}
+
+/*
+ * Dark theme. Two selectors on purpose: the media query covers the default
+ * "system" setting, and the data attribute covers an explicit choice -- so the
+ * toggle wins in both directions rather than only being able to turn dark on.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-surface: #1c1a17;
+    --color-surface-raised: #24211d;
+    --color-surface-sunken: #151311;
+    --color-surface-active: #322e28;
+
+    --color-border: #3a352e;
+
+    --color-primary: #f2efe9;
+    --color-secondary: #b8b0a4;
+    --color-tertiary: #857d72;
+
+    --color-accent: #e0913f;
+    --color-accent-subtle: #33261a;
+
+    --color-success: #6ba97f;
+    --color-success-subtle: #1d2a21;
+    --color-warning: #e0913f;
+    --color-warning-subtle: #33261a;
+    --color-danger: #d1746e;
+    --color-danger-subtle: #2e1c1b;
+
+    --shadow-panel: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px rgb(0 0 0 / 0.45);
+  }
+}
+
+:root[data-theme="dark"] {
+  --color-surface: #1c1a17;
+  --color-surface-raised: #24211d;
+  --color-surface-sunken: #151311;
+  --color-surface-active: #322e28;
+
+  --color-border: #3a352e;
+
+  --color-primary: #f2efe9;
+  --color-secondary: #b8b0a4;
+  --color-tertiary: #857d72;
+
+  --color-accent: #e0913f;
+  --color-accent-subtle: #33261a;
+
+  --color-success: #6ba97f;
+  --color-success-subtle: #1d2a21;
+  --color-warning: #e0913f;
+  --color-warning-subtle: #33261a;
+  --color-danger: #d1746e;
+  --color-danger-subtle: #2e1c1b;
+
+  --shadow-panel: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px rgb(0 0 0 / 0.45);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-surface-sunken);
+  color: var(--color-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Used by the graph's loading state. A pulsing block reads as "coming", where
+   a spinner on a WebGL canvas reads as "stuck". */
+.skeleton {
+  background-color: var(--color-surface-active);
+  animation: skeleton-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}
